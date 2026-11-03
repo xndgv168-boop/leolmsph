@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        // GitHub 项目页：无尾斜杠时 ./assets 会解析到错误路径导致白屏
+        var path = location.pathname;
+        var last = path.split("/").pop() || "";
+        if (path.slice(-1) !== "/" && last.indexOf(".") === -1) {
+          location.replace(path + "/" + location.search + location.hash);
+          return;
+        }
+        window.addEventListener("error", function (e) {
+          var el = document.getElementById("app");
+          if (!el || el.childNodes.length) return;
+          el.innerHTML = '<pre style="white-space:pre-wrap;padding:24px;font:14px/1.5 ui-monospace,monospace;color:#b91c1c;background:#fff1f2">Demo failed to load.\n' +
+            String((e && e.message) || e) +
+            '\n\nOpen DevTools → Network and check whether assets/*.js returns 404.\n' +
+            'Correct URL looks like: https://USER.github.io/REPO/#/\n' +
+            'If 404, rebuild with VITE_BASE=/REPO/</pre>';
+        }, true);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>leolmsph</title>
+    <script type="module" crossorigin src="./assets/index-B_v7Mpuz.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-C5fiWi9K.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  </html>
